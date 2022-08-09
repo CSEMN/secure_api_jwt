@@ -15,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => 'api'], function($router) {
-    Route::post('/register', [\App\Http\Controllers\JWTController::class, 'register']);
     Route::post('/login', [\App\Http\Controllers\JWTController::class, 'login']);
     Route::post('/logout', [\App\Http\Controllers\JWTController::class, 'logout']);
     Route::post('/refresh', [\App\Http\Controllers\JWTController::class, 'refresh']);
-    Route::post('/profile', [\App\Http\Controllers\JWTController::class, 'profile']);
-    Route::put('/update', [\App\Http\Controllers\JWTController::class, 'update']);
+    Route::post('/profile', [\App\Http\Controllers\UserController::class, 'profile']);
+    Route::post('/register', [\App\Http\Controllers\UserController::class, 'register']);
+    Route::put('/update', [\App\Http\Controllers\UserController::class, 'update']);
 });
 
 Route::apiResource('product',\App\Http\Controllers\ProductController::class);
