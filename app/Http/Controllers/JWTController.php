@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -41,7 +42,7 @@ class JWTController extends Controller
 
         return response()->json([
             'message' => 'User successfully registered',
-            'user' => $user
+            'user' => new UserResource($user),
         ], 201);
     }
 
@@ -78,7 +79,7 @@ class JWTController extends Controller
 
     public function profile()
     {
-        return response()->json(auth()->user());
+        return response()->json(new UserResource(auth()->user()));
     }
 
     protected function respondWithToken($token)
@@ -111,7 +112,7 @@ class JWTController extends Controller
 
         return response()->json([
             'message' => 'User successfully updated',
-            'user' => $user
+            'user' => new UserResource($user),
         ], 201);
     }
 }
