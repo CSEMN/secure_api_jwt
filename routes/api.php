@@ -23,4 +23,4 @@ Route::group(['middleware' => 'api'], function($router) {
     Route::put('/update', [\App\Http\Controllers\UserController::class, 'update']);
 });
 
-Route::apiResource('product',\App\Http\Controllers\ProductController::class);
+Route::apiResource('products',\App\Http\Controllers\ProductController::class);
