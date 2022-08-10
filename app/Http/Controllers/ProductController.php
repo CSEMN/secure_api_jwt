@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['jwt.verify','api'])->except(['index']);
+        $this->middleware(['CreatorOnly'])->only(['update','destroy']);
+    }
+
     public function index()
     {
         return Product::all();
@@ -19,22 +25,31 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $product = Product::create($request->all());
+        $fields = $request->validate([
+            'title'=>'required|string|min:3|max:100|unique:products,title',
+            'price'=>'required|numeric',
+        ]);
+        $fields['user_id']=auth()->id();
+        $product = Product::create($fields);
 
         return response()->json($product, 201);
     }
 
     public function update(Request $request, Product $product)
     {
-        $product->update($request->all());
+        $fields = $request->validate([
+            'title'=>'required|string|min:3|max:100|unique:products,title,' . $product->id,
+            'price'=>'required|numeric',
+        ]);
+        $product->update($fields);
 
-        return response()->json($product, 200);
+        return response()->json($product, 202);
     }
 
-    public function delete(Product $product)
+    public function destroy(Product $product)
     {
+        $title = $product->title;
         $product->delete();
-
-        return response()->json(null, 204);
+        return response()->json(['status'=>"Product: $title, deleted Successfully"], 202);
     }
 }
