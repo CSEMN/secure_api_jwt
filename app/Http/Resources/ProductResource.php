@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use function Symfony\Component\Translation\t;
 
 class ProductResource extends JsonResource
 {
@@ -14,9 +15,14 @@ class ProductResource extends JsonResource
      */
     public function toArray($request)
     {
+        if($request['lang'] =='ar' && !empty($this->title_ar)){
+            $title = $this->title_ar;
+        }else{
+            $title = $this->title;
+        }
         return [
             'id'=>$this->id,
-            'title' => $this->title,
+            'title' => $title,
             'price' => $this->price,
             'user' => new UserResource($this->user),
         ];
