@@ -44,19 +44,29 @@ class ProductController extends Controller
             'user_id' => auth()->id(),
         ]);
 
+        if ($request->lang == 'ar') {
+            $product->title_ar = $request->title;
+            $product->save();
+        }
+
         return new ProductResource($product);
     }
 
     public function update(Request $request, int $prod_id)
     {
         $product = Product::find($prod_id);
-        if($product){
+        if ($product) {
             $request->validate([
                 'title' => 'sometimes|required|string|min:3|max:100|unique:products,title,' . $product->id,
                 'price' => 'sometimes|required|numeric',
             ]);
-            if ($request->title)
-                $product->title = $request->title;
+            if ($request->title) {
+                if ($request->lang == 'ar') {
+                    $product->title_ar = $request->title;
+                } else {
+                    $product->title = $request->title;
+                }
+            }
             if ($request->price)
                 $product->price = $request->price;
 
@@ -64,7 +74,7 @@ class ProductController extends Controller
                 $product->save();
 
             return new ProductResource($product);
-        }else{
+        } else {
             return self::getNotFoundResponse();
         }
     }
@@ -72,14 +82,14 @@ class ProductController extends Controller
     public function destroy(int $prod_id)
     {
         $product = Product::find($prod_id);
-        if($product){
+        if ($product) {
             $title = $product->title;
             $product->delete();
             return response()->json([
                 'status' => 202,
                 'message' => "Product: $title, deleted Successfully"
             ], 202);
-        } else  {
+        } else {
             return self::getNotFoundResponse();
         }
 
