@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -19,9 +20,15 @@ class ProductController extends Controller
         return ProductResource::collection(Product::all());
     }
 
-    public function show(Product $product)
+    public function show(int $prod_id)
     {
-        return new ProductResource($product);
+
+        $product = Product::find($prod_id);
+        if ($product)
+            return new ProductResource($product);
+        else
+            return self::getNotFoundResponse();
+
     }
 
     public function store(Request $request)
@@ -37,33 +44,52 @@ class ProductController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        return response()->json($product, 201);
-    }
-
-    public function update(Request $request, Product $product)
-    {
-        $request->validate([
-            'title' => 'sometimes|required|string|min:3|max:100|unique:products,title,' . $product->id,
-            'price' => 'sometimes|required|numeric',
-        ]);
-        if ($request->title)
-            $product->title = $request->title;
-        if ($request->price)
-            $product->price = $request->price;
-
-        if ($product->isDirty())
-            $product->save();
-
         return new ProductResource($product);
     }
 
-    public function destroy(Product $product)
+    public function update(Request $request, int $prod_id)
     {
-        $title = $product->title;
-        $product->delete();
+        $product = Product::find($prod_id);
+        if($product){
+            $request->validate([
+                'title' => 'sometimes|required|string|min:3|max:100|unique:products,title,' . $product->id,
+                'price' => 'sometimes|required|numeric',
+            ]);
+            if ($request->title)
+                $product->title = $request->title;
+            if ($request->price)
+                $product->price = $request->price;
+
+            if ($product->isDirty())
+                $product->save();
+
+            return new ProductResource($product);
+        }else{
+            return self::getNotFoundResponse();
+        }
+    }
+
+    public function destroy(int $prod_id)
+    {
+        $product = Product::find($prod_id);
+        if($product){
+            $title = $product->title;
+            $product->delete();
+            return response()->json([
+                'status' => 202,
+                'message' => "Product: $title, deleted Successfully"
+            ], 202);
+        } else  {
+            return self::getNotFoundResponse();
+        }
+
+    }
+
+    public static function getNotFoundResponse(): \Illuminate\Http\JsonResponse
+    {
         return response()->json([
-            'status' => 200,
-            'message' => "Product: $title, deleted Successfully"
-        ], 202);
+            'status' => 404,
+            'message' => "Product Not Found"
+        ], 404);
     }
 }
