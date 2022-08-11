@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\CreatorOnly;
+use App\Http\Middleware\ForceJsonOnAPIs;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -16,6 +17,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
+        ForceJsonOnAPIs::class,
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
