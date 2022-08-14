@@ -45,17 +45,7 @@
                     </svg>
                 </div>
 
-                <div class="mt-4 " style="border: #a0aec0 dashed;text-align: center;">
-                    <a href="/api/github/redirect" style="font-size: 30px; color:whitesmoke; padding: 10px;">
-                        Login via GitHub
-                    </a>
-                </div>
 
-                <div class="mt-4 " style="border: #a0aec0 dashed;text-align: center;">
-                    <a href="/api/google/redirect" style="font-size: 30px; color:whitesmoke; padding: 10px;">
-                        Login via Google
-                    </a>
-                </div>
             </div>
         </div>
     </body>
