@@ -3,9 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use http\Cookie;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cookie;
 
 class SetLangCookie
 {
@@ -18,26 +17,11 @@ class SetLangCookie
      */
     public function handle(Request $request, Closure $next)
     {
-
-        if (!$request->hasCookie('lang')) {
-            if ($request->has('lang')) {
-                $lang_val = $request->lang;
-            } else {
-                $lang_val = 'en';
-            }
-            cookie()->queue(cookie()->forever('lang', $lang_val));
+        if (!$request->hasCookie('lang') || $request->has('lang')) {
+            return $next($request)
+                ->withCookie(cookie()->forever('lang', $request->lang??'en'));
         } else {
-            if (
-                $request->has('lang' ||
-                    cookie('lang') != $request->lang)
-            ) {
-                cookie('lang',$request->lang);
-
-            } else
                 return $next($request);
         }
-        return $next($request);
-
-
     }
 }

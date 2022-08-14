@@ -15,11 +15,21 @@ class ProductResource extends JsonResource
      */
     public function toArray($request)
     {
-        if($request['lang'] =='ar' && !empty($this->title_ar)){
-            $title = $this->title_ar;
+
+        if($request->has('lang')){
+            if($request->lang =='ar' && !empty($this->title_ar)){
+                $title = $this->title_ar;
+            }else{
+                $title = $this->title;
+            }
         }else{
-            $title = $this->title;
+            if($request->cookie('lang') =='ar' && !empty($this->title_ar)){
+                $title = $this->title_ar;
+            }else{
+                $title = $this->title;
+            }
         }
+
         return [
             'id'=>$this->id,
             'title' => $title,
