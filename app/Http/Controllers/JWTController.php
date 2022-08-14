@@ -53,7 +53,7 @@ class JWTController extends Controller
         return $this->respondWithToken(auth()->refresh());
     }
 
-    protected function respondWithToken($token)
+    public function respondWithToken($token)
     {
         return response()->json([
             'access_token' => $token,

@@ -1,7 +1,10 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +27,12 @@ Route::group(['middleware' => 'api'], function($router) {
 });
 
 Route::apiResource('products',\App\Http\Controllers\ProductController::class);
+
+//Github OAuth
+Route::group(['middleware' => ['web']], function () {
+
+    Route::get('/{provider}/redirect', [\App\Http\Controllers\AuthController::class,'redirect']);
+
+    Route::get('/{provider}/callback',[\App\Http\Controllers\AuthController::class,'callback']);
+
+});
