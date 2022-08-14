@@ -47,7 +47,7 @@ class AuthController extends Controller
             if ($validator->fails()){
                 return redirect()->withErrors($validator);
             }
-            
+
             $random_password = Str::random(10);
             $user = User::create([
                 'name' => $data->name,
