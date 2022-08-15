@@ -14,7 +14,7 @@
                             </div>
                         @endif
 
-                        {{ cookie('lang')== 'ar'? 'تم تسجيل الدخول': 'You are Logged in !' }}
+                        {{ Cookie::get('lang')== 'ar'? 'تم تسجيل الدخول': 'You are Logged in !' }}
                         @if($access_token)
                             <div>User Name : {{auth()->user()->name}}</div>
                             <div>Email : {{auth()->user()->email}}</div>
