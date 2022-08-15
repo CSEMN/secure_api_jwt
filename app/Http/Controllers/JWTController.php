@@ -38,7 +38,11 @@ class JWTController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token);
+        $data = $this->respondWithToken($token)->getData();
+        return view('/home', [
+            'access_token'=>$data->access_token,
+            'token_type'=>$data->token_type,
+            'expires_in'=>$data->expires_in]);
     }
 
     public function logout()

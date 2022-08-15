@@ -93,10 +93,12 @@
 <script type="text/javascript">
     function setCookieAr() {
         document.cookie = "lang=ar;path=/";
+        location.reload();
     }
 
     function setCookieEn() {
         document.cookie = "lang=en;path=/";
+        location.reload();
     }
 
     document.getElementById("ar_btn").addEventListener("click", setCookieAr);
