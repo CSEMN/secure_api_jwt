@@ -68,7 +68,7 @@
                             </div>
 
                             @if (Route::has('password.request'))
-                                <div class="row mb-0">
+                                <div class="row mb-0 mt-2">
                                     <div class="col-md-6 offset-md-4 " style="display: flex;justify-content: right;">
                                         <a class="btn btn-link align-self-end" href="{{ route('password.request') }}">
                                             {{ __('Forgot Your Password?') }}
@@ -83,21 +83,26 @@
                                 OR
                               </span>
                             </div>
-                            <div class="row mb-1 mt-4">
-                                <div class="col-md-6 offset-md-4">
-                                    <div class="mt-4 " style="border: #a0aec0 dashed;text-align: center;">
-                                        <a href="/api/github/redirect" style="font-size: 30px; color:gray; padding: 10px;">
-                                            Login via GitHub
+                            <div class="row mb-1 mt-3" style="text-align: center;">
+                                <div class="col-md-12">
+                                        <a href="/api/google/redirect" style="padding: 10px;text-decoration: none;">
+                                            <img src="{{asset('/assets/google_logo.png')}}" alt="Google Logo" height="35 px"/>
                                         </a>
-                                    </div>
-
-                                    <div class="mt-4 " style="border: #a0aec0 dashed;text-align: center;">
-                                        <a href="/api/google/redirect" style="font-size: 30px; color:darkred; padding: 10px;">
-                                            Login via Google
+                                        <a href="/api/github/redirect" style="padding: 10px;">
+                                            <img src="{{asset('/assets/github_logo.png')}}" alt="Github Logo" height="50 px"/>
                                         </a>
-                                    </div>
-
                                 </div>
+
+                            </div>
+
+                            <div class="row mb-1" style="text-align: center;">
+                                <div class="col-md-12">
+                                    Need an Account?
+                                    <a href="/register" class="btn btn-link" style="text-decoration: none;">
+                                        Sign up
+                                    </a>
+                                </div>
+
                             </div>
 
                         </form>
