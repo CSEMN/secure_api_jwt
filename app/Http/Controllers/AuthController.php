@@ -15,28 +15,22 @@ class AuthController extends Controller
 {
     public function redirect(Request $request)
     {
-        return Socialite::driver($request->provider)->redirect();
+        return Socialite::driver($request->provider)->stateless()->redirect();
     }
 
     public function callback($provider)
     {
         try {
-            $data = Socialite::driver($provider)->user();
+            $data = Socialite::driver($provider)->stateless()->user();
 
         } catch (\Exception $e) {
             return redirect('/home');
         }
-
         $user = $this->createOrUpdateUser($data, $provider);
 
-        auth()->login($user);
+        auth()->login($user,true);
         $token = JWTAuth::fromUser($user);
-        $res = (new JWTController())->respondWithToken($token);
-        $data = $res->getData();
-        return view('/home', [
-            'access_token'=>$data->access_token,
-            'token_type'=>$data->token_type,
-            'expires_in'=>$data->expires_in]);
+        return (new JWTController())->respondWithToken($token);
     }
 
     private function createOrUpdateUser($data, $provider)

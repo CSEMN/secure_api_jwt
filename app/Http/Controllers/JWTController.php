@@ -2,12 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Http\Resources\UserResource;
-use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class JWTController extends Controller
@@ -37,12 +32,7 @@ class JWTController extends Controller
         ) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
-        $data = $this->respondWithToken($token)->getData();
-        return view('/home', [
-            'access_token'=>$data->access_token,
-            'token_type'=>$data->token_type,
-            'expires_in'=>$data->expires_in]);
+        return $this->respondWithToken($token);
     }
 
     public function logout()
@@ -60,6 +50,7 @@ class JWTController extends Controller
     public function respondWithToken($token)
     {
         return response()->json([
+            'user'=>auth()->user(),
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60

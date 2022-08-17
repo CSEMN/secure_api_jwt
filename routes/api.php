@@ -32,7 +32,6 @@ Route::apiResource('products',\App\Http\Controllers\ProductController::class);
 Route::group(['middleware' => ['web']], function () {
 
     Route::get('/{provider}/redirect', [\App\Http\Controllers\AuthController::class,'redirect']);
-
     Route::get('/{provider}/callback',[\App\Http\Controllers\AuthController::class,'callback']);
 
 });

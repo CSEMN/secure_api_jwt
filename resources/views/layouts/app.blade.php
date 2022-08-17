@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+      dir="{{($_COOKIE['lang']=='ar')?'rtl':'ltr'}}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,11 +8,16 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{($_COOKIE['lang']=='ar')?'لارافيل':'Laravel'}}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <!--Jquery -->
+{{--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">--}}
+{{--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">--}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -20,9 +26,9 @@
 <body>
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-        <div class="container">
+        <div class="container " dir="ltr">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+                {{($_COOKIE['lang']=='ar')?'لارافيل':'Laravel'}}
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -30,7 +36,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" >
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav me-auto">
 
@@ -40,24 +46,24 @@
                 <ul class="navbar-nav ms-auto">
 
                     <li class="nav-item">
-                       <a class="nav-link" id="ar_btn" href='#'>Ar</a>
+                       <a class="nav-link" id="ar_btn" href='#'>{{($_COOKIE['lang']=='ar')?'عربي':'AR'}}</a>
                     </li>
 
-                    <li class="nav-item me-4">
-                        <a class="nav-link" id="en_btn" href="#">En</a>
+                    <li class="nav-item">
+                        <a class="nav-link" id="en_btn" href="#">{{($_COOKIE['lang']=='ar')?'انجليزي':'En'}}</a>
                     </li>
 
                     <!-- Authentication Links -->
                     @guest
                         @if (Route::has('login'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{($_COOKIE['lang']=='ar')?'تسجيل الدخول':'Login'}}</a>
                             </li>
                         @endif
 
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">{{($_COOKIE['lang']=='ar')?'حساب جديد':'Register'}}</a>
                             </li>
                         @endif
                     @else
