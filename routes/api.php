@@ -18,10 +18,10 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 Route::group(['middleware' => 'api'], function($router) {
-    Route::post('/login', [\App\Http\Controllers\JWTController::class, 'login']);
+    Route::post('/login', [\App\Http\Controllers\JWTController::class, 'login'])->middleware('cors');
     Route::post('/logout', [\App\Http\Controllers\JWTController::class, 'logout']);
     Route::post('/refresh', [\App\Http\Controllers\JWTController::class, 'refresh']);
-    Route::post('/profile', [\App\Http\Controllers\UserController::class, 'profile']);
+    Route::get('/profile', [\App\Http\Controllers\UserController::class, 'profile']);
     Route::post('/register', [\App\Http\Controllers\UserController::class, 'register']);
     Route::put('/update', [\App\Http\Controllers\UserController::class, 'update']);
 });

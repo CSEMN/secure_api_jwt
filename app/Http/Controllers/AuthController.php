@@ -15,13 +15,13 @@ class AuthController extends Controller
 {
     public function redirect(Request $request)
     {
-        return Socialite::driver($request->provider)->stateless()->redirect();
+        return Socialite::driver($request->provider)->redirect();
     }
 
     public function callback($provider)
     {
         try {
-            $data = Socialite::driver($provider)->stateless()->user();
+            $data = Socialite::driver($provider)->user();
 
         } catch (\Exception $e) {
             return redirect('/home');
