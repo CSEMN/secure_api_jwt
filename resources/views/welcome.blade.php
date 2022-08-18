@@ -20,8 +20,8 @@
             }
         </style>
     </head>
-    <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+    <body class="antialiased" >
+        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0" style="background-color: #f8fafc">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
@@ -45,17 +45,7 @@
                     </svg>
                 </div>
 
-                <div class="mt-4 " style="border: #a0aec0 dashed;text-align: center;">
-                    <a href="/api/github/redirect" style="font-size: 30px; color:whitesmoke; padding: 10px;">
-                        Login via GitHub
-                    </a>
-                </div>
 
-                <div class="mt-4 " style="border: #a0aec0 dashed;text-align: center;">
-                    <a href="/api/google/redirect" style="font-size: 30px; color:whitesmoke; padding: 10px;">
-                        Login via Google
-                    </a>
-                </div>
             </div>
         </div>
     </body>

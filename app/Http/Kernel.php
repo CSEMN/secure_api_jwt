@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\CreatorOnly;
 use App\Http\Middleware\ForceJsonOnAPIs;
 use App\Http\Middleware\SetLangCookie;
+use App\Http\Middleware\SetTokenFromCookie;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -18,7 +19,9 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
-        ForceJsonOnAPIs::class,
+//        ForceJsonOnAPIs::class,
+//        SetTokenFromCookie::class,
+        \App\Http\Middleware\CORS::class,
         SetLangCookie::class,
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
@@ -63,12 +66,13 @@ class Kernel extends HttpKernel
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class,
-        'CreatorOnly'=>CreatorOnly::class,
+        'CreatorOnly' => CreatorOnly::class,
+        'cors' => \App\Http\Middleware\CORS::class,
+        'guest' => \App\Http\Middleware\CORS::class,
     ];
 }

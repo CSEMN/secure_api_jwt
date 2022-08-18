@@ -23,15 +23,13 @@ class AuthController extends Controller
         try {
             $data = Socialite::driver($provider)->user();
 
-        }catch (\Exception $e){
-            return redirect('/');
+        } catch (\Exception $e) {
+            return redirect('/home');
         }
-
         $user = $this->createOrUpdateUser($data, $provider);
 
-//       auth()->login($user);
+        auth()->login($user,true);
         $token = JWTAuth::fromUser($user);
-
         return (new JWTController())->respondWithToken($token);
     }
 
@@ -40,12 +38,12 @@ class AuthController extends Controller
         $user = User::where('provider_id', $data->id)->first();
         if (!$user) {
             $validator = Validator::make(
-                ['email'=>$data->email],
-                ['email'=>'unique:users,email'],
-                ['email.unique'=>"Couldn't login, maybe you used another login method !"]);
+                ['email' => $data->email],
+                ['email' => 'unique:users,email'],
+                ['email.unique' => "Couldn't login, maybe you used another login method !"]);
 
-            if ($validator->fails()){
-                return redirect()->withErrors($validator);
+            if ($validator->fails()) {
+                return redirect('/home')->withErrors($validator);
             }
 
             $random_password = Str::random(10);
