@@ -2,11 +2,11 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
-        <div class="card-header">Sign up</div>
+        <div class="card-header">{{"REGISTER"|translate}}</div>
 
         <div class="card-body">
             <form class="form-signin" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-              <h3 class="h3 mb-3 font-weight-normal text-center">Register User</h3>
+              <h3 class="h3 mb-3 font-weight-normal text-center">{{"REGISTER"|translate}}</h3>
               <!-- Errors -->
               <div *ngIf="errors?.name" class="alert alert-danger mt-3">
                 {{ errors?.name }}
@@ -21,20 +21,20 @@
                 {{ errors?.password_confirmation }}
               </div>
               <!-- Signup form -->
-              <div class="form-group">
-                <label>Name</label>
+              <div class="form-group mt-3">
+                <label>{{"NAME"|translate}}</label>
                 <input type="text" class="form-control" formControlName="name" />
               </div>
-              <div class="form-group">
-                <label>Email address</label>
+              <div class="form-group mt-3">
+                <label>{{"EMAIL"|translate}}</label>
                 <input type="email" class="form-control" formControlName="email" />
               </div>
-              <div class="form-group">
-                <label>Password</label>
+              <div class="form-group mt-3">
+                <label>{{"PASSWORD"|translate}}</label>
                 <input type="password" class="form-control" formControlName="password" />
               </div>
-              <div class="form-group">
-                <label>Confirm Password</label>
+              <div class="form-group mt-3">
+                <label>{{"PASSWORD_CONFIRM"|translate}}</label>
                 <input
                   type="password"
                   class="form-control"
@@ -43,7 +43,7 @@
               </div>
               <div class="text-center mt-3">
                 <button type="submit" class="btn btn-block btn-primary w-50 ">
-                  Register User
+                  {{"REGISTER"|translate}}
                 </button>
               </div>
 

@@ -4,6 +4,7 @@ import { TokenService } from './shared/token.service';
 import { AuthStateService } from './shared/auth-state.service';
 
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-root',
@@ -15,8 +16,11 @@ export class AppComponent implements OnInit {
   constructor(
     private auth: AuthStateService,
     public router: Router,
-    public token: TokenService
-  ) {}
+    public token: TokenService,
+  private translate: TranslateService
+  ) {
+    translate.setDefaultLang('en');
+  }
   ngOnInit() {
     this.auth.userAuthState.subscribe((val) => {
       this.isSignedIn = val;
@@ -27,6 +31,19 @@ export class AppComponent implements OnInit {
     this.auth.setAuthState(false);
     this.token.removeToken();
     this.router.navigate(['login']);
+  }
+  title = 'Ang10-NGX-translate';
+  languageList = [
+    {code: 'en', label: 'English'},
+    {code: 'ar', label: 'Arabic'}
+  ];
+
+
+  changeLang(lang: string) {
+    this.translate.use(lang);
+  }
+  getLang(){
+    return this.translate.currentLang;
   }
 
   faCoffee = faCoffee;
