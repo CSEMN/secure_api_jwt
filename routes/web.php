@@ -13,7 +13,7 @@ use Laravel\Socialite\Facades\Socialite;
 | contains the "web" middleware group. Now create something great!
 |
 */
-\Illuminate\Support\Facades\Auth::routes(['reset'=>false]);
+//\Illuminate\Support\Facades\Auth::routes(['reset'=>false]);
 
 Route::get('/',[App\Http\Controllers\HomeController::class, 'index']);
 
