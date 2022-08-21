@@ -44,7 +44,7 @@
 
           <ng-container *ngFor="let language of languageList">
             <li class="nav-item">
-              <a class="nav-link"  (click)="changeLang(language.code)">
+              <a class="nav-link" role="button" (click)="changeLang(language.code)">
                 {{language.label|translate}}
               </a>
             </li>

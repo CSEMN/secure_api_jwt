@@ -18,7 +18,7 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 Route::group(['middleware' => 'api'], function($router) {
-    Route::post('/login', [\App\Http\Controllers\JWTController::class, 'login'])->middleware('cors');
+    Route::post('/login', [\App\Http\Controllers\JWTController::class, 'login']);
     Route::post('/logout', [\App\Http\Controllers\JWTController::class, 'logout']);
     Route::post('/refresh', [\App\Http\Controllers\JWTController::class, 'refresh']);
     Route::get('/profile', [\App\Http\Controllers\UserController::class, 'profile']);

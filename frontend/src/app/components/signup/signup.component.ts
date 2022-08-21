@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/auth.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import {Title} from "@angular/platform-browser";
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -13,8 +14,10 @@ export class SignupComponent implements OnInit {
   constructor(
     public router: Router,
     public fb: FormBuilder,
-    public authService: AuthService
+    public authService: AuthService,
+    private titleService:Title
   ) {
+    this.titleService.setTitle("API JWT | Register");
     this.registerForm = this.fb.group({
       name: [''],
       email: [''],

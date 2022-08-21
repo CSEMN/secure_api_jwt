@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -13,12 +12,9 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
+
     public function redirect(Request $request)
     {
-        header('Access-Control-Allow-Origin:  http://localhost:4200');
-        header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Authorization, Origin');
-        header('Access-Control-Allow-Methods:  PUT, GET, HEAD, POST, DELETE, OPTIONS');
-
         return Socialite::driver($request->provider)->redirect();
     }
 
@@ -28,7 +24,7 @@ class AuthController extends Controller
             $data = Socialite::driver($provider)->user();
 
         } catch (\Exception $e) {
-            return redirect('/home');
+            return back();
         }
         $user = $this->createOrUpdateUser($data, $provider);
 
