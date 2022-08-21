@@ -33,8 +33,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-//        return new UserResource($user);
-        return view('/home');
+        return new UserResource($user);
     }
 
     public function update(Request $request)
