@@ -33,5 +33,6 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/{provider}/redirect', [\App\Http\Controllers\AuthController::class,'redirect']);
     Route::get('/{provider}/callback',[\App\Http\Controllers\AuthController::class,'callback']);
+    Route::get('/{provider}/auth',[\App\Http\Controllers\AuthController::class,'handel_oauth']);
 
 });

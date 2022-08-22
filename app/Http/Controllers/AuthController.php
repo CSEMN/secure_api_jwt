@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+use Symfony\Component\Console\Output\ConsoleOutput;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -29,6 +30,15 @@ class AuthController extends Controller
         $user = $this->createOrUpdateUser($data, $provider);
 
         auth()->login($user,true);
+        $token = JWTAuth::fromUser($user);
+        return (new JWTController())->respondWithToken($token);
+    }
+
+    public function handel_oauth(Request $request,$provider){
+        $data = json_decode($request->data)[0];
+        $user = $this->createOrUpdateUser($data, $provider);
+
+        auth()->login($user);
         $token = JWTAuth::fromUser($user);
         return (new JWTController())->respondWithToken($token);
     }
