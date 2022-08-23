@@ -14,7 +14,7 @@ class CORS {
     public function handle(Request $request, Closure $next)
     {
         $allowedOrigins = ['https://secure-api-ui.herokuapp.com', 'http://localhost:4200'];
-        $origin = $_SERVER['HTTP_ORIGIN'];
+        $origin = request()->headers->get('origin');
 
         if(in_array($origin,$allowedOrigins)){
             header('Access-Control-Allow-Origin',$origin);
@@ -25,9 +25,6 @@ class CORS {
                 return $next($request)->setStatusCode(200);
             }
         }
-
-
-
         return $next($request);
     }
 
