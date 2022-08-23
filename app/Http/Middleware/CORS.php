@@ -13,14 +13,20 @@ class CORS {
      */
     public function handle(Request $request, Closure $next)
     {
-        header('Access-Control-Allow-Origin:  https://secure-api-ui.herokuapp.com');
-//        header('Access-Control-Allow-Origin:  http://localhost:4200');
-        header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length');
-        header('Access-Control-Allow-Methods:  PUT, GET, HEAD, POST, DELETE, OPTIONS');
+        $allowedOrigins = ['https://secure-api-ui.herokuapp.com', 'http://localhost:4200'];
+        $origin = $_SERVER['HTTP_ORIGIN'];
 
-        if ($request->method() == "OPTIONS") {
-            return $next($request)->setStatusCode(200);
+        if(in_array($origin,$allowedOrigins)){
+            header('Access-Control-Allow-Origin',$origin);
+            header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length');
+            header('Access-Control-Allow-Methods:  PUT, GET, HEAD, POST, DELETE, OPTIONS');
+
+            if ($request->method() == "OPTIONS") {
+                return $next($request)->setStatusCode(200);
+            }
         }
+
+
 
         return $next($request);
     }
