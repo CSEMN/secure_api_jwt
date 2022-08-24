@@ -16,4 +16,4 @@ use Laravel\Socialite\Facades\Socialite;
 //\Illuminate\Support\Facades\Auth::routes(['reset'=>false]);
 
 Route::get('/',[App\Http\Controllers\HomeController::class, 'index']);
-Route::view('/home', 'home')->name('home');
+Route::view('/home', 'welcome')->name('home');
