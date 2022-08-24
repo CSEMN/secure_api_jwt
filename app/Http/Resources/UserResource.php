@@ -14,10 +14,17 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+        if($this->avatar){
+            $avatar = $this->avatar;
+        }else{
+            $avatar = 'default_avatar.png';
+        }
+
         return [
             'name' => $this->name,
             'email' => $this->email,
             'created_at' => $this->created_at,
+            'avatar'=>$avatar
         ];
     }
 }

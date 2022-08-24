@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
+use App\Helper\StoreFile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -33,6 +35,13 @@ class UserController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
+        if ($request->hasFile('avatar')){
+            //if image is added
+            $avatar_path = StoreFile::store($request->file('avatar'), 'avatars');
+            $user->update([
+                'avatar'=>$avatar_path,
+            ]);
+        }
         return new UserResource($user);
     }
 
@@ -52,13 +61,18 @@ class UserController extends Controller
             ], 400);
         }
 
-
         if ($request->name)
             $user->name = $request->name;
         if ($request->email)
             $user->email = $request->email;
         if ($request->password)
             $user->password = Hash::make($request->password);
+        if ($request->hasFile('avatar')){
+            if (Storage::exists($user->getOriginal('avatar'))) {
+                Storage::delete($user->getOriginal('avatar'));
+            }
+            $user->avatar = StoreFile::store($request->file('avatar'), 'avatars');
+        }
 
         if ($user->isDirty())
             $user->save();
