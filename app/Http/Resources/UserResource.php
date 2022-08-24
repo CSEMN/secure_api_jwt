@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class UserResource extends JsonResource
 {
@@ -14,10 +15,12 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+
+
         if($this->avatar){
-            $avatar = asset($this->avatar);
+            $avatar = Storage::url($this->avatar);
         }else{
-            $avatar = asset('default_avatar.png');
+            $avatar = Storage::url('default_avatar.png');
         }
 
         return [
