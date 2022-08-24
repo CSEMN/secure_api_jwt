@@ -15,9 +15,9 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         if($this->avatar){
-            $avatar = $this->avatar;
+            $avatar = asset($this->avatar);
         }else{
-            $avatar = 'default_avatar.png';
+            $avatar = asset('default_avatar.png');
         }
 
         return [
