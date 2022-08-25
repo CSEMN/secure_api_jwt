@@ -10,7 +10,7 @@ class StoreFile
     public static function store($file, $folder = 'media')
     {
         $file_name = $folder . '/' . Str::random(40) . '.' . $file->extension();
-        Storage::putFileAs('/', $file, $file_name);
+        Storage::putFileAs('/public/', $file, $file_name);
         return $file_name;
     }
 }
