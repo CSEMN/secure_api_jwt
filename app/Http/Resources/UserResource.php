@@ -20,7 +20,7 @@ class UserResource extends JsonResource
         if($this->avatar){
             $avatar = Storage::url($this->avatar);
         }else{
-            $avatar = env('APP_URL') . asset('assets/default_avatar.png');
+            $avatar = asset('assets/default_avatar.png');
         }
 
         return [
